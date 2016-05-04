@@ -55,6 +55,7 @@ class VariableScopes(object):
 
     def start_suite(self):
         self._suite = self._global.copy()
+        self._suite['@{SUITE_TEARDOWN}'] = []
         self._scopes.append(self._suite)
         self._variables_set.start_suite()
         self._variables_set.update(self._suite)
@@ -66,6 +67,7 @@ class VariableScopes(object):
 
     def start_test(self):
         self._test = self._suite.copy()
+        self._test['@{TEST_TEARDOWN}'] = []
         self._scopes.append(self._test)
         self._variables_set.start_test()
 
@@ -76,6 +78,7 @@ class VariableScopes(object):
 
     def start_keyword(self):
         kw = self._suite.copy()
+        kw['@{KEYWORD_TEARDOWN}'] = []
         self._variables_set.start_keyword()
         self._variables_set.update(kw)
         self._scopes.append(kw)
